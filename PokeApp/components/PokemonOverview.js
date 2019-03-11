@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { fetchPokemon, selectPokemon } from '../actions';
-import { StyleSheet, Text, View, Image, FlatList } from 'react-native';
+import { StyleSheet, Text, View, Image, FlatList, Button } from 'react-native';
 import { connect } from 'react-redux';
+import { withNavigation } from 'react-navigation';
 
 class PokemonOverview extends Component {
   render() {
-    if (this.props.pokemon.pokemonDetail !== null)
+    if (this.props.data !== null)
       return (
         <View
           style={{
@@ -17,14 +18,18 @@ class PokemonOverview extends Component {
           <Image
             style={{ width: 200, height: 200 }}
             source={{
-              uri: this.props.pokemon.pokemonDetail.sprites.front_default
+              uri: this.props.data.sprites.front_default
             }}
           />
 
           <Text>
-            {this.props.pokemon.pokemonDetail.name.charAt(0).toUpperCase() +
-              this.props.pokemon.pokemonDetail.name.slice(1)}
+            {this.props.data.name.charAt(0).toUpperCase() +
+              this.props.data.name.slice(1)}
           </Text>
+          <Button
+            title="View Details"
+            onPress={() => this.props.navigation.navigate('PokemonDetails')}
+          />
         </View>
       );
     else return null;
@@ -32,9 +37,10 @@ class PokemonOverview extends Component {
 }
 
 const mapStateToProps = state => {
-  return { pokemon: state.pokemon };
+  return { data: state.data.pokemonDetail };
 };
-export default connect(
+const Overview = connect(
   mapStateToProps,
   { fetchPokemon, selectPokemon }
 )(PokemonOverview);
+export default withNavigation(Overview);

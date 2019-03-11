@@ -15,10 +15,10 @@ class PokemonList extends Component {
     this.props.fetchPokemon();
   }
   render() {
-    if (this.props.pokemon.filteredPokemon !== null)
+    if (this.props.data !== null)
       return (
         <FlatList
-          data={this.props.pokemon.filteredPokemon}
+          data={this.props.data}
           renderItem={({ item }) => (
             <View
               style={{
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => {
-  return { pokemon: state.pokemon };
+  return { data: state.data.filteredPokemon };
 };
 export default connect(
   mapStateToProps,
