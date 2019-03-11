@@ -4,14 +4,14 @@ import { connect } from 'react-redux';
 import { StyleSheet, Text, View } from 'react-native';
 import PokemonList from '../components/PokemonList';
 import PokemonOverview from '../components/PokemonOverview';
-import Navigation from '../components/Navigation';
-import { createStackNavigator, createAppContainer } from 'react-navigation';
 
 class Pokedex extends React.Component {
+  static navigationOptions = {
+    title: 'Pokedex'
+  };
   render() {
     return (
       <React.Fragment>
-        <Navigation />
         <View style={styles.container}>
           <PokemonOverview />
           <PokemonList />
